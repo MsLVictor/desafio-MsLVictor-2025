@@ -1,6 +1,3 @@
-# desafio-MsLVictor-2025
-desafio startdb 2025
-
 # ABRIGO DE ANIMAIS
 
 ## COMO BAIXAR O CÓDIGO E SUBMETER MINHA SOLUÇÃO?
