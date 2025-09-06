@@ -76,6 +76,15 @@ describe('Abrigo de Animais', () => {
     const resultado = new AbrigoAnimais().encontraPessoas(
       'RATO, BOLA, SKATE', 'NOVELO,CAIXA', 'Rex, Loco'
     );
-    expect(resultado.lista).toEqual(['Loco - pessoa 1', 'Rex - pessoa 1'])
+    expect(resultado.lista).toEqual(['Loco - pessoa 1', 'Rex - pessoa 1']);
+  });
+
+  test('Loco é adotado pela pessoa 2', () => {
+    const resultado = new AbrigoAnimais().encontraPessoas(
+      '',
+      'LASER,BOLA,SKATE,RATO',
+      'Fofo, Loco'
+    );
+    expect(resultado.lista).toEqual(['Fofo - pessoa 2','Loco - pessoa 2']);
   });
 });
