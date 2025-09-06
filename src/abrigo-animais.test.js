@@ -49,14 +49,14 @@ describe('Abrigo de Animais', () => {
     );
     expect(resultado.erro).toBe('Brinquedo inválido');
   });
-  //
+  //OK
   test('erro ao colocar animal repetido', () => {
     const resultado = new AbrigoAnimais().encontraPessoas(
       'RATO, BOLA', 'RATO, NOVELO', 'Rex, Fofo, Rex'
     );
     expect(resultado.erro).toBe('Não pode repetir animais.');
   });
-  //
+  //OK
   test('ignorando lista de brinquedos vazia', () => {
     const resultado = new AbrigoAnimais().encontraPessoas(
       'BOLA, RATO, LASER', '', 'Fofo'
@@ -64,7 +64,7 @@ describe('Abrigo de Animais', () => {
     expect(resultado.lista).toEqual(['Fofo - pessoa 1']);
   });
 
-  //
+  //OK
   test('testando primeira lista de brinquedos vazia', () => {
     const resultado = new AbrigoAnimais().encontraPessoas(
       '','LASER, RATO, BOLA','Bebe'
@@ -72,6 +72,10 @@ describe('Abrigo de Animais', () => {
     expect(resultado.lista).toEqual(['Bebe - pessoa 2']);
   });
 
-
-
+  test('Loco deve ser adotado pela pessoa 1 após ela adotar outro animal', () => {
+    const resultado = new AbrigoAnimais().encontraPessoas(
+      'RATO, BOLA, SKATE', 'NOVELO,CAIXA', 'Rex, Loco'
+    );
+    expect(resultado.lista).toEqual(['Loco - pessoa 1', 'Rex - pessoa 1'])
+  });
 });

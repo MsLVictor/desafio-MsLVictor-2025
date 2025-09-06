@@ -11,7 +11,7 @@ class AbrigoAnimais {
       LOCO: { tipo: "jabuti", favoritos: ["SKATE", "RATO"] },
     };
 
-    const ordem = ordemAnimais.toUpperCase().split(',').map(a => a.trim());
+    
     
     let adotados = [];
     let p1 = 0, p2 = 0;
@@ -25,6 +25,11 @@ class AbrigoAnimais {
     }
     const pessoa1 = splitList(brinquedosPessoa1);
     const pessoa2 = splitList(brinquedosPessoa2);
+    const ordem = ordemAnimais.toUpperCase().split(',').map(a => a.trim());
+    
+    if (new Set(ordem).size !== ordem.length){
+      return {erro: 'Não pode repetir animais.'};
+    }
 
     if (new Set(pessoa1).size !== pessoa1.length || new Set(pessoa2).size !== pessoa2.length) {
       return { erro: 'Brinquedo inválido' };
@@ -87,9 +92,7 @@ class AbrigoAnimais {
 const Abrigo = new AbrigoAnimais();
 
 console.log(Abrigo.encontraPessoas(
-  'CAIXA, PULO',
-  'POMBA, BOLA',
-  'Rex'
+  'RATO, BOLA, SKATE', 'NOVELO,CAIXA', 'Rex, Loco'
 ));
 
 export { AbrigoAnimais as AbrigoAnimais };
