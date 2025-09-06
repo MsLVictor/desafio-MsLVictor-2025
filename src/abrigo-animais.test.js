@@ -28,4 +28,50 @@ describe('Abrigo de Animais', () => {
       expect(resultado.lista.length).toBe(4);
       expect(resultado.erro).toBeFalsy();
   });
+ //OK
+  test('Animal inválido', () => {
+    const resultado = new AbrigoAnimais().encontraPessoas(
+      'BOLA,LASER', 'LASER', 'Batatinha'
+    );
+    expect(resultado.erro).toBe('Animal inválido');
+  });
+  //OK
+  test('Erro ao repetir brinquedos na entrada', () => {
+    const resultado = new AbrigoAnimais().encontraPessoas(
+      'RATO, BOLA, RATO', 'LASER, NOVELO', 'Rex'
+    );
+    expect(resultado.erro).toBe('Brinquedo inválido');
+  });
+  //OK
+  test('erro ao colocar brinquedo inexistente', () => {
+    const resultado = new AbrigoAnimais().encontraPessoas(
+      'BONECA, CARRO, BICICLETA', 'AVIAO, MONOCICLO, PIPA', 'Rex'
+    );
+    expect(resultado.erro).toBe('Brinquedo inválido');
+  });
+  //
+  test('erro ao colocar animal repetido', () => {
+    const resultado = new AbrigoAnimais().encontraPessoas(
+      'RATO, BOLA', 'RATO, NOVELO', 'Rex, Fofo, Rex'
+    );
+    expect(resultado.erro).toBe('Não pode repetir animais.');
+  });
+  //
+  test('ignorando lista de brinquedos vazia', () => {
+    const resultado = new AbrigoAnimais().encontraPessoas(
+      'BOLA, RATO, LASER', '', 'Fofo'
+    );
+    expect(resultado.lista).toEqual(['Fofo - pessoa 1']);
+  });
+
+  //
+  test('testando primeira lista de brinquedos vazia', () => {
+    const resultado = new AbrigoAnimais().encontraPessoas(
+      '','LASER, RATO, BOLA','Bebe'
+    );
+    expect(resultado.lista).toEqual(['Bebe - pessoa 2']);
+  });
+
+
+
 });

@@ -11,12 +11,20 @@ class AbrigoAnimais {
       LOCO: { tipo: "jabuti", favoritos: ["SKATE", "RATO"] },
     };
 
-    const pessoa1 = brinquedosPessoa1.toUpperCase().split(',').map(b => b.trim());
-    const pessoa2 = brinquedosPessoa2.toUpperCase().split(',').map(b => b.trim());
     const ordem = ordemAnimais.toUpperCase().split(',').map(a => a.trim());
-
+    
     let adotados = [];
     let p1 = 0, p2 = 0;
+    
+    function splitList(str) {
+      return String(str || "")
+      .split(",")
+      .map(s => s.trim())
+      .filter(Boolean)
+      .map(s => s.toUpperCase());
+    }
+    const pessoa1 = splitList(brinquedosPessoa1);
+    const pessoa2 = splitList(brinquedosPessoa2);
 
     if (new Set(pessoa1).size !== pessoa1.length || new Set(pessoa2).size !== pessoa2.length) {
       return { erro: 'Brinquedo inválido' };
