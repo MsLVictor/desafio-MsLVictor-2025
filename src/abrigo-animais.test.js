@@ -1,13 +1,13 @@
 import { AbrigoAnimais } from "./abrigo-animais";
 
 describe('Abrigo de Animais', () => {
-
+  //OK
   test('Deve rejeitar animal inválido', () => {
     const resultado = new AbrigoAnimais().encontraPessoas('CAIXA,RATO', 'RATO,BOLA', 'Lulu');
     expect(resultado.erro).toBe('Animal inválido');
     expect(resultado.lista).toBeFalsy();
   });
-
+  //OK
   test('Deve encontrar pessoa para um animal', () => {
     const resultado = new AbrigoAnimais().encontraPessoas(
       'RATO,BOLA', 'RATO,NOVELO', 'Rex,Fofo');
@@ -16,7 +16,7 @@ describe('Abrigo de Animais', () => {
       expect(resultado.lista.length).toBe(2);
       expect(resultado.erro).toBeFalsy();
   });
-
+  //OK
   test('Deve encontrar pessoa para um animal intercalando brinquedos', () => {
     const resultado = new AbrigoAnimais().encontraPessoas('BOLA,LASER',
       'BOLA,NOVELO,RATO,LASER', 'Mimi,Fofo,Rex,Bola');
@@ -28,7 +28,7 @@ describe('Abrigo de Animais', () => {
       expect(resultado.lista.length).toBe(4);
       expect(resultado.erro).toBeFalsy();
   });
- //OK
+ //OK 0ms
   test('Animal inválido', () => {
     const resultado = new AbrigoAnimais().encontraPessoas(
       'BOLA,LASER', 'LASER', 'Batatinha'
@@ -78,7 +78,7 @@ describe('Abrigo de Animais', () => {
     );
     expect(resultado.lista).toEqual(['Loco - pessoa 1', 'Rex - pessoa 1']);
   });
-
+  //OK
   test('Loco é adotado pela pessoa 2', () => {
     const resultado = new AbrigoAnimais().encontraPessoas(
       '',
@@ -86,5 +86,19 @@ describe('Abrigo de Animais', () => {
       'Fofo, Loco'
     );
     expect(resultado.lista).toEqual(['Fofo - pessoa 2','Loco - pessoa 2']);
+  });
+  //OK
+  test('LOCO vai para o abrigo porque pessoa já adotou 3', () => {
+  const resultado = new AbrigoAnimais().encontraPessoas(
+    'LASER,RATO,BOLA,CAIXA,NOVELO,SKATE',
+    '',
+    'Bebe,Bola,Rex,Loco'
+  );
+  expect(resultado.lista).toEqual([
+    'Bebe - pessoa 1',
+    'Bola - pessoa 1',
+    'Loco - abrigo',
+    'Rex - pessoa 1'
+    ]);
   });
 });

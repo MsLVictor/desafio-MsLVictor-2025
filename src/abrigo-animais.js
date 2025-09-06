@@ -1,3 +1,16 @@
+/**
+ * DESAFIO: ABRIGO DE ANIMAIS
+ * FEITO POR: VICTOR LEITE (MsLVictor)
+ * DESCRIÇÃO:
+ * Dado um abrigo com animais que tem brinquedos favoritos,
+ * e duas pessoas com listas de brinquedos, o sistema determina
+ * para onde cada animai será encaminhado:
+ *  - pessoa 1
+ *  - pessoa 2
+ *  - abrigo
+ * Seguindo regras específicas para cães, gatos e jabuti :D
+ */
+
 class AbrigoAnimais {
 
   encontraPessoas(brinquedosPessoa1, brinquedosPessoa2, ordemAnimais) {
@@ -16,6 +29,7 @@ class AbrigoAnimais {
     let adotados = [];
     let p1 = 0, p2 = 0;
     
+    //função utilitária para formatar a string
     function splitList(str) {
       return String(str || "")
       .split(",")
@@ -27,6 +41,7 @@ class AbrigoAnimais {
     const pessoa2 = splitList(brinquedosPessoa2);
     const ordem = ordemAnimais.toUpperCase().split(',').map(a => a.trim());
     
+    //validaçoes de entradas
     if (new Set(ordem).size !== ordem.length){
       return {erro: 'Não pode repetir animais.'};
     }
@@ -41,6 +56,7 @@ class AbrigoAnimais {
       }
     }
 
+    //lógica de adoção
     for (let nome of ordem){
       const nomeUpper = nome.toUpperCase();
       const dados = animais[nomeUpper];
@@ -52,20 +68,35 @@ class AbrigoAnimais {
       const favoritos = dados.favoritos;
       const tipo = dados.tipo;
 
-      let atende1 = false
-      let atende2 = false;
+      let atende1 = atende(dados, pessoa1,p1);
+      let atende2 = atende(dados, pessoa2, p2);
       
-      if( tipo === 'cão'){
+      function isSubsequencia(lista, favoritos){
         let i = 0
-        for (let b of pessoa1) if (b === favoritos[i]) i++;
-        atende1 = (i === favoritos.length);
-        i = 0;
-        for (let b of pessoa2) if (b === favoritos[i]) i++;
-        atende2 = (i === favoritos.length);
-      } else {
-        atende1 = favoritos.every(f => pessoa1.includes(f));
-        atende2 = favoritos.every(f => pessoa2.includes(f));
+        for(let item of lista){
+          if(item === favoritos[i]) i++;
+          if(i === favoritos.length) break;
+        }
+        return i === favoritos.length;
       }
+      
+      function atende(animal, brinquedos, adotados) {
+        const { tipo, favoritos } = animal;
+
+        let possuiTodos;
+        if (tipo === 'cão') {
+          possuiTodos = isSubsequencia(brinquedos, favoritos);
+        } else {
+          possuiTodos = favoritos.every(f => brinquedos.includes(f));
+        }
+
+        if (animal.tipo === 'jabuti') {
+          return possuiTodos && adotados > 0;
+        }
+
+        return possuiTodos;
+}
+
        
       if (nomeUpper === 'LOCO'){
         atende1 = atende1 && p1 > 0;
@@ -91,8 +122,10 @@ class AbrigoAnimais {
 
 const Abrigo = new AbrigoAnimais();
 
+//exemplo de uso
+const abrigo = new AbrigoAnimais();
 console.log(Abrigo.encontraPessoas(
-  'RATO, BOLA, SKATE', 'NOVELO,CAIXA', 'Rex, Loco'
+  'BOLA,LASER', 'LASER', 'Batatinha'
 ));
-
+//animal inválido!
 export { AbrigoAnimais as AbrigoAnimais };
